@@ -17,6 +17,7 @@
 		6F0C2FE02086E6760069A6B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F0C2FDE2086E6760069A6B9 /* LaunchScreen.storyboard */; };
 		6F0C2FEB2086E6760069A6B9 /* Tree_TopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0C2FEA2086E6760069A6B9 /* Tree_TopTests.swift */; };
 		6F0C2FF62086E6760069A6B9 /* Tree_TopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0C2FF52086E6760069A6B9 /* Tree_TopUITests.swift */; };
+		6F0C30062086E82B0069A6B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F0C30052086E82A0069A6B9 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		6F0C2FF12086E6760069A6B9 /* Tree TopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tree TopUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F0C2FF52086E6760069A6B9 /* Tree_TopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree_TopUITests.swift; sourceTree = "<group>"; };
 		6F0C2FF72086E6760069A6B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F0C30052086E82A0069A6B9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../../../Downloads/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				6F0C2FD72086E66F0069A6B9 /* GameViewController.swift */,
 				6F0C2FD92086E66F0069A6B9 /* Main.storyboard */,
 				6F0C2FDC2086E6760069A6B9 /* Assets.xcassets */,
+				6F0C30052086E82A0069A6B9 /* LaunchScreen.storyboard */,
 				6F0C2FDE2086E6760069A6B9 /* LaunchScreen.storyboard */,
 				6F0C2FE12086E6760069A6B9 /* Info.plist */,
 			);
@@ -238,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F0C30062086E82B0069A6B9 /* LaunchScreen.storyboard in Resources */,
 				6F0C2FDB2086E66F0069A6B9 /* Main.storyboard in Resources */,
 				6F0C2FD22086E66F0069A6B9 /* GameScene.sks in Resources */,
 				6F0C2FDD2086E6760069A6B9 /* Assets.xcassets in Resources */,
@@ -448,7 +452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.couch..Tree-Top";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couch.Tree-Top";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -465,7 +469,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.couch..Tree-Top";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couch.Tree-Top";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
