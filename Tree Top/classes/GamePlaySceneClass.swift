@@ -46,13 +46,12 @@ class GamePlaySceneClass: SKScene {
             let textureName = "l0_newSquirrel\(i)"
             textureArray.append(SKTexture(imageNamed: textureName))
         }
-        for _ in 1...1 {
+        for i in 1...7 {
             let scoreTile = SKSpriteNode(imageNamed: "couch_Logo");
-            scoreTile.size = CGSize(width: 350, height: 350);
-            scoreTile.color = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0);
-            scoreTile.colorBlendFactor = 1.0;
-            scoreTile.position = CGPoint(x: 200 + 100, y: 300);
-            scoreTile.zPosition = 20;
+            scoreTile.size = CGSize(width: 50, height: 50);
+            scoreTile.position = CGPoint(x: i * 50, y: 1234);
+            scoreTile.zPosition = 2;
+            self.addChild(scoreTile);
             scoreArray.append(scoreTile);
         }
         print(scoreArray);
@@ -100,6 +99,10 @@ class GamePlaySceneClass: SKScene {
             dimmer?.isHidden = false;
             gameOver?.isHidden = false;
             musicButton.position = CGPoint(x: sWidth, y: sHeight);
+            for i in 0...(scoreArray.count-1) {
+                scoreArray[i].position = CGPoint(x: 225+(50*i), y: 800);
+                scoreArray[i].zPosition = 15;
+            }
         } else {
             gameScore = (squirrel?.score)!;
             scoreDisplay?.text = String(describing: gameScore);
@@ -119,7 +122,7 @@ class GamePlaySceneClass: SKScene {
         }
         let encodedArray = encodeScore(score: gameScore);
         for i in 0...(scoreArray.count-1) {
-            scoreArray[i].texture = SKTexture(imageNamed: "Layer 1_numbers_0\(encodedArray[i])")
+            scoreArray[i].texture = SKTexture(imageNamed: "Layer 1_numbers_0\(encodedArray[(scoreArray.count-1) - i])")
         }
         background1?.move();
         background2?.move();
@@ -152,6 +155,10 @@ class GamePlaySceneClass: SKScene {
                 pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
                 tops[i]?.position.x = -500;
                 tops[i]?.isAlive = false;
+            }
+            for i in 0...(scoreArray.count-1) {
+                scoreArray[i].position = CGPoint(x: i * 50 + 50, y: 1234);
+                scoreArray[i].zPosition = 2;
             }
             background1?.position.x = 750;
             background2?.position.x = 1500;

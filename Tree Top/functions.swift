@@ -79,9 +79,9 @@ func pillarDist(score: Int?) -> CGFloat {
 
 func encodeScore(score: Int) -> Array<Int> {
     var codedArray = [Int]()
-    var num = score / 10
-    for _ in 0...6 {
-        codedArray.append(num % 10)
+    var num = score;
+    for _ in 0...8 {
+        codedArray.append(num % 10);
         num/=10;
     }
     return codedArray
