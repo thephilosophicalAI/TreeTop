@@ -15,9 +15,11 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("loading main menu...")
+        
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "MainMenu") {
+            if let scene = MainMenuScene(fileNamed: "MainMenu") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 

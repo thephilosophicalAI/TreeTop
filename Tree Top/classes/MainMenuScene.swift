@@ -1,8 +1,8 @@
 //
 //  MainMenuScene.swift
-//  squirrelly jump v.3
+//  Tree Top
 //
-//  Created by Jake Grace on 1/10/18.
+//  Created by Travis Weber on 1/10/18.
 //  Copyright © 2018 couch. All rights reserved.
 //
 

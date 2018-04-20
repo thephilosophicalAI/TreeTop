@@ -21,14 +21,16 @@ class Squirrel: SKSpriteNode {
     
     func move() {
         self.vel += self.acc
+        if (self.isDead() == false) {
         if self.gliding == true {
             self.vel = constrain(value: self.vel, min: -5, max: 100)
         }
         if self.isRotating == true {
             self.zRotation += 0.25
         }
-        self.position.y += self.vel
         self.score += 10;
+        }
+        self.position.y += self.vel
     }
  
     func jump() {

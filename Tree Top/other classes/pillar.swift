@@ -73,9 +73,9 @@ class Pillar: SKSpriteNode {
             self.position.y = constrain(value: self.position.y, min: 0.3 * sHeight, max: 1.5 * sHeight)
             self.size.width = randomNumInBetween(min: sWidth * 0.6, max: sWidth * 0.8)
             self.size.height = self.size.width * 2
-            if (randomValue() < CGFloat(gameScore) / 100000) {
+            if (randomValue() < CGFloat(gameScore) / 50000) {
                 self.top?.isAlive = true;
-                self.top?.position = CGPoint(x: self.position.x, y: self.position.y + constrain(value: 150 - (CGFloat(gameScore) / 100000), min: 80, max: 150));
+                self.top?.position = CGPoint(x: self.position.x, y: self.position.y + constrain(value: 300 - (150 * CGFloat(gameScore) / 50000), min: 80, max: 150));
                 self.top?.size = self.size;
             }
         }

@@ -96,7 +96,7 @@ class GamePlaySceneClass: SKScene {
         for pillar in pillars {
             pillar?.move();
             let pillarTest = pillar?.test(position: CGPoint(x: (squirrel?.position.x)!, y: (squirrel?.position.y)! - ((squirrel?.size.height)! / 20)), vel: squirrel?.vel);
-            if  (pillarTest![0] == 1) && (pillarTest![1] != -1) {
+            if  (pillarTest![0] == 1) && (pillarTest![1] != -1) && (squirrel?.isDead()==false) {
                 if pillarTest![1] == 1 {
                     squirrel?.landed(y: pillar?.position.y);
                 } else if pillarTest![1] == 0 {
