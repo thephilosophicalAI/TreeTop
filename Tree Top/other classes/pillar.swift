@@ -61,7 +61,6 @@ class Pillar: SKSpriteNode {
                 }
             }
         } else {
-            self.position.x += pillarDist(score: gameScore);
             self.reset(y: pillars[previousPillar]?.position.y);
         }
     }
@@ -69,13 +68,22 @@ class Pillar: SKSpriteNode {
     func reset(y: CGFloat?) {
         if y != nil {
             self.top?.isAlive = false;
-            self.position.y = y! + randomNumInBetween(min: -0.3 * sHeight, max: 0.2 * sHeight)
+            var yChange = randomNumInBetween(min: -0.3 * sHeight, max: 0.2 * sHeight)
+            var xChange = pillarDist(score: gameScore);
+            let theta = atan(yChange / xChange);
+            if (theta > 0) {
+                yChange = sin(theta) * xChange;
+                xChange = cos(theta) * xChange;
+            }
+            self.position.y = y! + yChange;
+            self.position.x += xChange;
             self.position.y = constrain(value: self.position.y, min: 0.3 * sHeight, max: 1.5 * sHeight)
             self.size.width = randomNumInBetween(min: sWidth * 0.6, max: sWidth * 0.8)
-            self.size.height = self.size.width * 2
-            if (randomValue() < CGFloat(gameScore) / 50000) {
+            self.size.height = self.size.width * 2;
+            //CGFloat(gameScore) / 50000
+            if (randomValue() < 0.75) {
                 self.top?.isAlive = true;
-                self.top?.position = CGPoint(x: self.position.x, y: self.position.y + constrain(value: 300 - (150 * CGFloat(gameScore) / 50000), min: 80, max: 150));
+                self.top?.position = CGPoint(x: self.position.x, y: self.position.y + constrain(value: 300 - (150 * CGFloat(gameScore) / 50000), min: 80, max: 300));
                 self.top?.size = self.size;
             }
         }

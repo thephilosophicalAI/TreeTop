@@ -25,10 +25,10 @@ class Squirrel: SKSpriteNode {
         if self.gliding == true {
             self.vel = constrain(value: self.vel, min: -5, max: 100)
         }
+            self.score += 10;
+        }
         if self.isRotating == true {
             self.zRotation += 0.25
-        }
-        self.score += 10;
         }
         self.position.y += self.vel
     }

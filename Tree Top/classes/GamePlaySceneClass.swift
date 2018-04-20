@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import UIKit
 
 var gameOver = false;
 var gameScore = 0;
@@ -27,7 +28,7 @@ class GamePlaySceneClass: SKScene {
     private var pillar2: Pillar?;
     private var pillar3: Pillar?;
     private var acorn: Acorn?
-    private var textureArray = [SKTexture]()
+    private var textureArray = [SKTexture]();
     private var background1: Background?;
     private var background2: Background?;
     private var dimmer: SKSpriteNode?;
@@ -36,6 +37,7 @@ class GamePlaySceneClass: SKScene {
     private var top1: Top?;
     private var top2: Top?;
     private var top3: Top?;
+    private var scoreArray = [SKSpriteNode]();
     private var musicAudio = SKAudioNode(fileNamed: "cutmusic.mp3");
     
     override func didMove(to view: SKView) {
@@ -44,7 +46,17 @@ class GamePlaySceneClass: SKScene {
             let textureName = "l0_newSquirrel\(i)"
             textureArray.append(SKTexture(imageNamed: textureName))
         }
-        squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)))
+        for _ in 1...1 {
+            let scoreTile = SKSpriteNode(imageNamed: "couch_Logo");
+            scoreTile.size = CGSize(width: 350, height: 350);
+            scoreTile.color = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0);
+            scoreTile.colorBlendFactor = 1.0;
+            scoreTile.position = CGPoint(x: 200 + 100, y: 300);
+            scoreTile.zPosition = 20;
+            scoreArray.append(scoreTile);
+        }
+        print(scoreArray);
+        squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)));
          self.addChild(musicAudio);
         musicButton.zPosition = 12;
         if (playMusic) {
@@ -105,7 +117,10 @@ class GamePlaySceneClass: SKScene {
                 }
             }
         }
-        //print(encodeScore(score: gameScore));
+        let encodedArray = encodeScore(score: gameScore);
+        for i in 0...(scoreArray.count-1) {
+            scoreArray[i].texture = SKTexture(imageNamed: "Layer 1_numbers_0\(encodedArray[i])")
+        }
         background1?.move();
         background2?.move();
     }
