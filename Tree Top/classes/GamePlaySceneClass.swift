@@ -56,9 +56,9 @@ class GamePlaySceneClass: SKScene {
         squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)), withKey: "squirrel run");
          self.addChild(musicAudio);
         musicButton.zPosition = 12;
-        musicAudio.run(SKAction.changeVolume(to: 0, duration: TimeInterval(0)))
-        musicAudio.run(SKAction.changeVolume(to: 1, duration: TimeInterval(2.5)))
         if (playMusic) {
+            musicAudio.run(SKAction.changeVolume(to: 0, duration: TimeInterval(0)))
+            musicAudio.run(SKAction.changeVolume(to: 1, duration: TimeInterval(2.5)))
             musicAudio.run(SKAction.play());
         } else {
             musicAudio.run(SKAction.stop());
@@ -105,7 +105,7 @@ class GamePlaySceneClass: SKScene {
         if ((squirrel?.isDead())!) {
             dimmer?.isHidden = false;
             gameOver?.isHidden = false;
-            musicButton.position = CGPoint(x: sWidth, y: sHeight);
+            //musicButton.position = CGPoint(x: sWidth, y: sHeight);
             for i in 0...(scoreArray.count-1) {
                 scoreArray[i].position = CGPoint(x: 225+(50*i), y: 800);
                 scoreArray[i].zPosition = 15;
@@ -138,19 +138,22 @@ class GamePlaySceneClass: SKScene {
         for touch in touches {
             let location = touch.location(in: self);
             if atPoint(location).name == "musicButton" {
-                playMusic = !playMusic;
-                if (playMusic == true) {
-                    musicAudio.run(SKAction.play());
-                } else {
-                    musicAudio.run(SKAction.pause());
+                // Load the SKScene from 'GameScene.sks'
+                if let scene = MainMenuScene(fileNamed: "MainMenu") {
+                    // Set the scale mode to scale to fit the window
+                    scene.scaleMode = .aspectFill
+                    
+                    // Present the scene
+                    view!.presentScene(scene)
                 }
+
             }
         }
         if (!(squirrel?.isDead())!) {
             squirrel?.jump();
             squirrel?.gliding = true;
         } else {
-            musicButton.position = CGPoint(x: sWidth, y: sHeight);
+            //musicButton.position = CGPoint(x: sWidth, y: sHeight);
             dimmer?.isHidden = true;
             gameOver?.isHidden = true;
             squirrel?.reset();

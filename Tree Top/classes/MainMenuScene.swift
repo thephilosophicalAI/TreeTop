@@ -29,8 +29,10 @@ class MainMenuScene: SKScene {
         musicButton = childNode(withName: "musicButton") as? SKSpriteNode;
         self.addChild(sounds);
         if (playMusic) {
+            background.texture = SKTexture(imageNamed: "backgrounf_0");
             sounds.run(SKAction.play());
         } else {
+            background.texture = SKTexture(imageNamed: "backgrounf_1");
             sounds.run(SKAction.stop());
         }
         
@@ -65,10 +67,12 @@ class MainMenuScene: SKScene {
             
             if atPoint(location).name == "musicButton" {
                 playMusic = !playMusic;
-                if (playMusic == true) {
+                if (playMusic) {
+                    background.texture = SKTexture(imageNamed: "backgrounf_0");
                     sounds.run(SKAction.play());
                 } else {
-                    sounds.run(SKAction.pause());
+                    background.texture = SKTexture(imageNamed: "backgrounf_1");
+                    sounds.run(SKAction.stop());
                 }
             }
             

@@ -68,13 +68,11 @@ class Pillar: SKSpriteNode {
     func reset(y: CGFloat?) {
         if y != nil {
             self.top?.isAlive = false;
-            var yChange = randomNumInBetween(min: -0.3 * sHeight, max: 0.2 * sHeight)
+            var yChange = randomNumInBetween(min: -0.2 * sHeight, max: 0.2 * sHeight)
             var xChange = pillarDist(score: gameScore);
             let theta = atan(yChange / xChange);
-            if (theta > 0) {
-                yChange = sin(theta) * xChange;
-                xChange = cos(theta) * xChange;
-            }
+            yChange = sin(theta) * xChange;
+            xChange = cos(theta) * xChange;
             self.position.y = y! + yChange;
             self.position.x += xChange;
             self.position.y = constrain(value: self.position.y, min: 0.3 * sHeight, max: 1.5 * sHeight)
