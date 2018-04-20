@@ -33,7 +33,6 @@ class GamePlaySceneClass: SKScene {
     private var background2: Background?;
     private var dimmer: SKSpriteNode?;
     private var gameOver: SKSpriteNode?;
-    private var scoreDisplay: SKLabelNode?;
     private var top1: Top?;
     private var top2: Top?;
     private var top3: Top?;
@@ -47,14 +46,13 @@ class GamePlaySceneClass: SKScene {
             textureArray.append(SKTexture(imageNamed: textureName))
         }
         for i in 1...7 {
-            let scoreTile = SKSpriteNode(imageNamed: "couch_Logo");
+            let scoreTile = SKSpriteNode(imageNamed: "Layer 1_numbers_00");
             scoreTile.size = CGSize(width: 50, height: 50);
             scoreTile.position = CGPoint(x: i * 50, y: 1234);
             scoreTile.zPosition = 2;
             self.addChild(scoreTile);
             scoreArray.append(scoreTile);
         }
-        print(scoreArray);
         squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)));
          self.addChild(musicAudio);
         musicButton.zPosition = 12;
@@ -89,7 +87,6 @@ class GamePlaySceneClass: SKScene {
         tops = [top1, top2, top3]
     dimmer = childNode(withName: "dimmer") as? SKSpriteNode;
         gameOver = childNode(withName: "gameOver") as? SKSpriteNode;
-        scoreDisplay = childNode(withName: "score") as? SKLabelNode;
         dimmer?.isHidden = true;
         gameOver?.isHidden = true;
     
@@ -113,7 +110,6 @@ class GamePlaySceneClass: SKScene {
             }
         } else {
             gameScore = (squirrel?.score)!;
-            scoreDisplay?.text = String(describing: gameScore);
         }
         squirrel?.move();
         for pillar in pillars {

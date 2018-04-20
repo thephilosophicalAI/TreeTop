@@ -23,7 +23,6 @@ class MainMenuScene: SKScene {
     
     
     override func didMove(to view: SKView) {
-        print("loaded");
         playButton = childNode(withName: "PlayButton") as? SKSpriteNode;
         background = childNode(withName: "background") as? SKSpriteNode;
         leaderBoardButton = childNode(withName: "leaderboardbutton") as? SKSpriteNode;
@@ -34,7 +33,6 @@ class MainMenuScene: SKScene {
         } else {
             sounds.run(SKAction.stop());
         }
-        print("no Issues");
         
     } //did move to view
     
@@ -43,10 +41,7 @@ class MainMenuScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self);
             
-            print("clicked");
-            
             if atPoint(location).name == "PlayButton" {
-                print("clicked play");
                     // Load the SKScene from 'GameScene.sks'
                 if let scene = GamePlaySceneClass(fileNamed: "GamePlayScene") {
                     // Set the scale mode to scale to fit the window
@@ -54,7 +49,6 @@ class MainMenuScene: SKScene {
                     
                     // Present the scene
                     view!.presentScene(scene)
-                    print("presenting...");
                 }
             }
             
