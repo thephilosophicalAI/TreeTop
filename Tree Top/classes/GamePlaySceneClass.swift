@@ -63,6 +63,14 @@ class GamePlaySceneClass: SKScene {
         } else {
             musicAudio.run(SKAction.stop());
         }
+        for pillar in pillars {
+            pillar?.position.y = 658;
+        }
+        for i in 0...(pillars.count-1) {
+            pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
+            tops[i]?.position.x = -500;
+            tops[i]?.isAlive = false;
+        }
     }
     
    private func initializeGame() {

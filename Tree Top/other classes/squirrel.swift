@@ -23,7 +23,8 @@ class Squirrel: SKSpriteNode {
         self.vel += self.acc
         if (self.isDead() == false) {
         if self.gliding == true {
-            self.vel = constrain(value: self.vel, min: -5, max: 100)
+            self.vel = constrain(value: self.vel, min: -5, max: 100);
+            self.texture = SKTexture(imageNamed: "Fibonacci squirrel Glide");
         }
             self.score += 10;
         }
