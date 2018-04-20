@@ -15,6 +15,7 @@ var pillars: [Pillar?] = []
 var tops: [Top?] = []
 var currentPillar = 2
 var previousPillar = 1
+var textureArray = [SKTexture]();
 
 
 class GamePlaySceneClass: SKScene {
@@ -28,7 +29,6 @@ class GamePlaySceneClass: SKScene {
     private var pillar2: Pillar?;
     private var pillar3: Pillar?;
     private var acorn: Acorn?
-    private var textureArray = [SKTexture]();
     private var background1: Background?;
     private var background2: Background?;
     private var dimmer: SKSpriteNode?;
@@ -53,9 +53,11 @@ class GamePlaySceneClass: SKScene {
             self.addChild(scoreTile);
             scoreArray.append(scoreTile);
         }
-        squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)));
+        squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)), withKey: "squirrel run");
          self.addChild(musicAudio);
         musicButton.zPosition = 12;
+        musicAudio.run(SKAction.changeVolume(to: 0, duration: TimeInterval(0)))
+        musicAudio.run(SKAction.changeVolume(to: 1, duration: TimeInterval(2.5)))
         if (playMusic) {
             musicAudio.run(SKAction.play());
         } else {
@@ -171,6 +173,7 @@ class GamePlaySceneClass: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         squirrel?.gliding = false;
+        squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)), withKey: "squirrel run");
     }
     
     @objc private func createAcorn() {

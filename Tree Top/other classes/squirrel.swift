@@ -18,13 +18,17 @@ class Squirrel: SKSpriteNode {
     var gliding = false;
     var hitPillar = false;
     var isRotating = false;
+    var isLanded = false;
     
     func move() {
         self.vel += self.acc
         if (self.isDead() == false) {
         if self.gliding == true {
             self.vel = constrain(value: self.vel, min: -5, max: 100);
-            self.texture = SKTexture(imageNamed: "Fibonacci squirrel Glide");
+            if (self.isLanded == false) {
+                self.removeAction(forKey: "squirrel run");
+                self.texture = SKTexture(imageNamed: "Fibonacci squirrel Glide");
+            }
         }
             self.score += 10;
         }
@@ -40,6 +44,7 @@ class Squirrel: SKSpriteNode {
             self.position.y += 10
         }
         self.jumps += 1;
+        self.isLanded = false;
     }
     
     func landed(y: CGFloat?) {
@@ -50,6 +55,10 @@ class Squirrel: SKSpriteNode {
         self.position.y = y + (self.size.height / 20);
         self.vel = 0;
         self.jumps = 0;
+        if (self.isLanded == false) {
+            self.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)), withKey: "squirrel run");
+        }
+        self.isLanded = true;
     }
     
     func isDead() -> Bool{
