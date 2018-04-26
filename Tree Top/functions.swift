@@ -67,9 +67,9 @@ func pillarTime(score: Int?) -> Float{
 
 func pillarDist(score: Int?) -> CGFloat {
     if (score != nil) {
-        let valueHold = (Double(score!) * 16).squareRoot() + 1480;
-        if valueHold > 3200 {
-            return 3200
+        let valueHold = (Double(score!).squareRoot() * 7) + 1480;
+        if valueHold > 3500 {
+            return 3500
         }
         return CGFloat(valueHold)
     } else {

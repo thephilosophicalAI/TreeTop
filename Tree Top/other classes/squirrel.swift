@@ -30,7 +30,7 @@ class Squirrel: SKSpriteNode {
                 self.texture = SKTexture(imageNamed: "Fibonacci squirrel Glide");
             }
         }
-            self.score += 10;
+            self.score += 1;
         }
         if self.isRotating == true {
             self.zRotation += 0.25

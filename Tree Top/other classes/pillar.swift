@@ -53,8 +53,9 @@ class Pillar: SKSpriteNode {
     }
  
     func move() {
+        self.vel -= 0.0006;
         if (self.position.x > -self.size.width) {
-            self.position.x += self.vel
+            self.position.x += self.vel;
             if (self.top?.isAlive != nil) {
                 if self.top?.isAlive == true {
                     self.top?.position.x += self.vel;

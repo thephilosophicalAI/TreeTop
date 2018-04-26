@@ -28,11 +28,11 @@ class GamePlaySceneClass: SKScene {
     private var pillar1: Pillar?;
     private var pillar2: Pillar?;
     private var pillar3: Pillar?;
-    private var acorn: Acorn?
     private var background1: Background?;
     private var background2: Background?;
     private var dimmer: SKSpriteNode?;
     private var gameOver: SKSpriteNode?;
+    private var highScore: SKSpriteNode?;
     private var top1: Top?;
     private var top2: Top?;
     private var top3: Top?;
@@ -48,7 +48,7 @@ class GamePlaySceneClass: SKScene {
         for i in 1...7 {
             let scoreTile = SKSpriteNode(imageNamed: "Layer 1_numbers_00");
             scoreTile.size = CGSize(width: 50, height: 50);
-            scoreTile.position = CGPoint(x: i * 50, y: 1234);
+            scoreTile.position = CGPoint(x: i * 50, y: 1284);
             scoreTile.zPosition = 2;
             self.addChild(scoreTile);
             scoreArray.append(scoreTile);
@@ -82,17 +82,16 @@ class GamePlaySceneClass: SKScene {
         top1 = childNode(withName: "pillar4") as? Top;
         top2 = childNode(withName: "pillar5") as? Top;
         top3 = childNode(withName: "pillar6") as? Top;
-        acorn = childNode(withName: "acorn") as? Acorn;
         background1 = childNode(withName: "background1") as? Background;
         background2 = childNode(withName: "background2") as? Background;
         pillars = [pillar1, pillar2, pillar3]
         tops = [top1, top2, top3]
     dimmer = childNode(withName: "dimmer") as? SKSpriteNode;
         gameOver = childNode(withName: "gameOver") as? SKSpriteNode;
+    highScore = childNode(withName: "highscore") as? SKSpriteNode;
         dimmer?.isHidden = true;
         gameOver?.isHidden = true;
-    
-        Timer.scheduledTimer(timeInterval: TimeInterval(20), target: self, selector: #selector(GamePlaySceneClass.createAcorn), userInfo: nil, repeats: true)
+    highScore?.isHidden = true;
     
     for i in 0...(pillars.count-1) {
         pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
@@ -107,8 +106,14 @@ class GamePlaySceneClass: SKScene {
             gameOver?.isHidden = false;
             //musicButton.position = CGPoint(x: sWidth, y: sHeight);
             for i in 0...(scoreArray.count-1) {
-                scoreArray[i].position = CGPoint(x: 225+(50*i), y: 800);
+                scoreArray[i].position = CGPoint(x: 225+(50*i), y: 750);
                 scoreArray[i].zPosition = 15;
+            }
+            let highScoreDefault = UserDefaults.standard;
+            if (highScoreDefault.integer(forKey: "high squirrel") < gameScore) {
+                highScore?.isHidden = false;
+                highScoreDefault.set(gameScore, forKey: "high squirrel")
+                highScoreDefault.synchronize();
             }
         } else {
             gameScore = (squirrel?.score)!;
@@ -153,24 +158,7 @@ class GamePlaySceneClass: SKScene {
             squirrel?.jump();
             squirrel?.gliding = true;
         } else {
-            //musicButton.position = CGPoint(x: sWidth, y: sHeight);
-            dimmer?.isHidden = true;
-            gameOver?.isHidden = true;
-            squirrel?.reset();
-            for pillar in pillars {
-                pillar?.position.y = 658;
-            }
-            for i in 0...(pillars.count-1) {
-                pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
-                tops[i]?.position.x = -500;
-                tops[i]?.isAlive = false;
-            }
-            for i in 0...(scoreArray.count-1) {
-                scoreArray[i].position = CGPoint(x: i * 50 + 50, y: 1234);
-                scoreArray[i].zPosition = 2;
-            }
-            background1?.position.x = 750;
-            background2?.position.x = 1500;
+            resetScene();
         }
     }
     
@@ -179,8 +167,26 @@ class GamePlaySceneClass: SKScene {
         squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)), withKey: "squirrel run");
     }
     
-    @objc private func createAcorn() {
-        acorn?.reset()
+    func resetScene() {
+        dimmer?.isHidden = true;
+        gameOver?.isHidden = true;
+        highScore?.isHidden = true;
+        squirrel?.reset();
+        for pillar in pillars {
+            pillar?.position.y = 658;
+            pillar?.vel = -9.75;
+        }
+        for i in 0...(pillars.count-1) {
+            pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
+            tops[i]?.position.x = -500;
+            tops[i]?.isAlive = false;
+        }
+        for i in 0...(scoreArray.count-1) {
+            scoreArray[i].position = CGPoint(x: i * 50 + 50, y: 1284);
+            scoreArray[i].zPosition = 2;
+        }
+        background1?.position.x = 750;
+        background2?.position.x = 1500;
     }
     
     

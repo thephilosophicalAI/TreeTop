@@ -19,7 +19,9 @@ class MainMenuScene: SKScene {
     private var playButton: SKSpriteNode!;
     private var leaderBoardButton: SKSpriteNode!;
     private var musicButton: SKSpriteNode!;
+    private var highScore: SKSpriteNode!;
     private var sounds = SKAudioNode(fileNamed: "birdsounds.mp3");
+    private var scoreArray = [SKSpriteNode]();
     
     
     override func didMove(to view: SKView) {
@@ -35,6 +37,21 @@ class MainMenuScene: SKScene {
             background.texture = SKTexture(imageNamed: "backgrounf_1");
             sounds.run(SKAction.stop());
         }
+        highScore = childNode(withName: "highscore") as? SKSpriteNode;
+        for i in 1...7 {
+            let scoreTile = SKSpriteNode(imageNamed: "Layer 1_numbers_00");
+            scoreTile.size = CGSize(width: 50, height: 50);
+            scoreTile.position = CGPoint(x: i * 50 + 175, y: 1030);
+            scoreTile.zPosition = 2;
+            self.addChild(scoreTile);
+            scoreArray.append(scoreTile);
+        }
+        let highScoreDefault = UserDefaults.standard;
+        let encodedArray = encodeScore(score: (highScoreDefault.integer(forKey: "high squirrel")))
+        for i in 0...(scoreArray.count-1) {
+            scoreArray[i].texture = SKTexture(imageNamed: "Layer 1_numbers_0\(encodedArray[(scoreArray.count-1) - i])")
+        }
+
         
     } //did move to view
     
