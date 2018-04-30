@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+//import AVFoundation
 
 var playMusic = true;
 
@@ -30,6 +31,7 @@ class MainMenuScene: SKScene {
         leaderBoardButton = childNode(withName: "leaderboardbutton") as? SKSpriteNode;
         musicButton = childNode(withName: "musicButton") as? SKSpriteNode;
         self.addChild(sounds);
+        //init(audioEngine: AVAudioEngine);
         if (playMusic) {
             background.texture = SKTexture(imageNamed: "backgrounf_0");
             sounds.run(SKAction.play());
