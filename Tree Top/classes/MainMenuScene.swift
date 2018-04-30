@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-//import AVFoundation
+import AVFoundation
 
 var playMusic = true;
 
@@ -23,6 +23,7 @@ class MainMenuScene: SKScene {
     private var highScore: SKSpriteNode!;
     private var sounds = SKAudioNode(fileNamed: "birdsounds.mp3");
     private var scoreArray = [SKSpriteNode]();
+    private var audioPlayer = AVAudioPlayer();
     
     
     override func didMove(to view: SKView) {
@@ -30,14 +31,23 @@ class MainMenuScene: SKScene {
         background = childNode(withName: "background") as? SKSpriteNode;
         leaderBoardButton = childNode(withName: "leaderboardbutton") as? SKSpriteNode;
         musicButton = childNode(withName: "musicButton") as? SKSpriteNode;
-        self.addChild(sounds);
-        //init(audioEngine: AVAudioEngine);
+        let audioSession = AVAudioSession.sharedInstance();
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryAmbient);
+        } catch {
+            print(error);
+        }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "birdsounds", ofType: "mp3")!));
+            audioPlayer.prepareToPlay();
+        }
+        catch {
+            print(error);
+        }
         if (playMusic) {
-            background.texture = SKTexture(imageNamed: "backgrounf_0");
-            sounds.run(SKAction.play());
+            audioPlayer.play();
         } else {
-            background.texture = SKTexture(imageNamed: "backgrounf_1");
-            sounds.run(SKAction.stop());
+            audioPlayer.pause();
         }
         highScore = childNode(withName: "highscore") as? SKSpriteNode;
         for i in 1...7 {
@@ -88,10 +98,10 @@ class MainMenuScene: SKScene {
                 playMusic = !playMusic;
                 if (playMusic) {
                     background.texture = SKTexture(imageNamed: "backgrounf_0");
-                    sounds.run(SKAction.play());
+                    audioPlayer.play();
                 } else {
                     background.texture = SKTexture(imageNamed: "backgrounf_1");
-                    sounds.run(SKAction.stop());
+                    audioPlayer.stop();
                 }
             }
             
