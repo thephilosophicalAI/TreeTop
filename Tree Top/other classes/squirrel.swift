@@ -19,6 +19,7 @@ class Squirrel: SKSpriteNode {
     var hitPillar = false;
     var isRotating = false;
     var isLanded = false;
+    var skin: String = "terry";
     
     func move() {
         self.vel += self.acc
@@ -27,7 +28,7 @@ class Squirrel: SKSpriteNode {
             self.vel = constrain(value: self.vel, min: -5, max: 100);
             if (self.isLanded == false) {
                 self.removeAction(forKey: "squirrel run");
-                self.texture = SKTexture(imageNamed: "Fibonacci squirrel Glide");
+                self.texture = SKTexture(imageNamed: "gliding_"+self.skin);
             }
         }
             self.score += 1;

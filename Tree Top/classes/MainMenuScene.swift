@@ -12,15 +12,13 @@ import AVFoundation
 var playMusic = true;
 
 class MainMenuScene: SKScene {
-    
-    //let sWidth = UIScreen.main.bounds.width
-    //let sHeight = UIScreen.main.bounds.height
 
     private var background: SKSpriteNode!;
     private var playButton: SKSpriteNode!;
     private var leaderBoardButton: SKSpriteNode!;
     private var musicButton: SKSpriteNode!;
     private var highScore: SKSpriteNode!;
+    private var treeTopSprite: SKSpriteNode!;
     private var sounds = SKAudioNode(fileNamed: "birdsounds.mp3");
     private var scoreArray = [SKSpriteNode]();
     private var audioPlayer = AVAudioPlayer();
@@ -31,6 +29,7 @@ class MainMenuScene: SKScene {
         background = childNode(withName: "background") as? SKSpriteNode;
         leaderBoardButton = childNode(withName: "leaderboardbutton") as? SKSpriteNode;
         musicButton = childNode(withName: "musicButton") as? SKSpriteNode;
+        treeTopSprite = childNode(withName: "TreeTop") as? SKSpriteNode;
         let audioSession = AVAudioSession.sharedInstance();
         do {
             try audioSession.setCategory(AVAudioSessionCategoryAmbient);
@@ -45,9 +44,11 @@ class MainMenuScene: SKScene {
             print(error);
         }
         if (playMusic) {
+            musicButton.texture = SKTexture(imageNamed: "musicOn");
             audioPlayer.play();
         } else {
-            audioPlayer.pause();
+            musicButton.texture = SKTexture(imageNamed: "musicOff");
+            audioPlayer.stop();
         }
         highScore = childNode(withName: "highscore") as? SKSpriteNode;
         for i in 1...7 {
@@ -83,25 +84,25 @@ class MainMenuScene: SKScene {
                 }
             }
             
-            /* if atPoint(location).name == "leaderboardbutton" {
+            if atPoint(location).name == "musicButton" {
+                playMusic = !playMusic;
+                if (playMusic) {
+                    musicButton.texture = SKTexture(imageNamed: "musicOn");
+                    audioPlayer.play();
+                } else {
+                    musicButton.texture = SKTexture(imageNamed: "musicOff");
+                    audioPlayer.stop();
+                }
+            }
+            
+            if atPoint(location).name == "shopButton" {
                 // Load the SKScene from 'GameScene.sks'
-                if let scene = LeaderBoardSceneClass(fileNamed: "LeaderBoardScene") {
+                if let scene = skinsClass(fileNamed: "skinsScene") {
                     // Set the scale mode to scale to fit the window
                     scene.scaleMode = .aspectFill
                     
                     // Present the scene
                     view!.presentScene(scene)
-                }
-            } */
-            
-            if atPoint(location).name == "musicButton" {
-                playMusic = !playMusic;
-                if (playMusic) {
-                    background.texture = SKTexture(imageNamed: "backgrounf_0");
-                    audioPlayer.play();
-                } else {
-                    background.texture = SKTexture(imageNamed: "backgrounf_1");
-                    audioPlayer.stop();
                 }
             }
             

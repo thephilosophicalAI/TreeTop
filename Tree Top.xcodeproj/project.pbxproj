@@ -30,6 +30,9 @@
 		6F1EF30520898019009EAC33 /* tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF2FF20898019009EAC33 /* tree.swift */; };
 		6F1EF30620898019009EAC33 /* pillar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF30020898019009EAC33 /* pillar.swift */; };
 		6F1EF30720898019009EAC33 /* top.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF30120898019009EAC33 /* top.swift */; };
+		6F26DD97209FEE8F0018614A /* skinsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F26DD96209FEE8F0018614A /* skinsClass.swift */; };
+		6F26DD99209FEE960018614A /* skinsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F26DD98209FEE950018614A /* skinsScene.sks */; };
+		6F26DD9B209FEE9E0018614A /* cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F26DD9A209FEE9E0018614A /* cards.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,9 @@
 		6F1EF2FF20898019009EAC33 /* tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = tree.swift; path = "Tree Top/other classes/tree.swift"; sourceTree = SOURCE_ROOT; };
 		6F1EF30020898019009EAC33 /* pillar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = pillar.swift; path = "Tree Top/other classes/pillar.swift"; sourceTree = SOURCE_ROOT; };
 		6F1EF30120898019009EAC33 /* top.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = top.swift; path = "Tree Top/other classes/top.swift"; sourceTree = SOURCE_ROOT; };
+		6F26DD96209FEE8F0018614A /* skinsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = skinsClass.swift; sourceTree = "<group>"; };
+		6F26DD98209FEE950018614A /* skinsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = skinsScene.sks; sourceTree = "<group>"; };
+		6F26DD9A209FEE9E0018614A /* cards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cards.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +180,7 @@
 				6F1EF30020898019009EAC33 /* pillar.swift */,
 				6F1EF2FD20898019009EAC33 /* squirrel.swift */,
 				6F1EF30120898019009EAC33 /* top.swift */,
+				6F26DD9A209FEE9E0018614A /* cards.swift */,
 				6F1EF2FF20898019009EAC33 /* tree.swift */,
 			);
 			name = "other classes";
@@ -185,6 +192,7 @@
 			children = (
 				6F1EF2EF20897F6C009EAC33 /* MainMenuScene.swift */,
 				6F1EF2ED20897F64009EAC33 /* GamePlaySceneClass.swift */,
+				6F26DD96209FEE8F0018614A /* skinsClass.swift */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -192,8 +200,9 @@
 		6FAE517920897D0F00B82377 /* scenes */ = {
 			isa = PBXGroup;
 			children = (
-				6F1EF2F120897F77009EAC33 /* GamePlayScene.sks */,
 				6F1EF2F320897F7D009EAC33 /* MainMenu.sks */,
+				6F1EF2F120897F77009EAC33 /* GamePlayScene.sks */,
+				6F26DD98209FEE950018614A /* skinsScene.sks */,
 			);
 			path = scenes;
 			sourceTree = "<group>";
@@ -307,6 +316,7 @@
 				6F1EF2F420897F7D009EAC33 /* MainMenu.sks in Resources */,
 				6F0C2FDB2086E66F0069A6B9 /* Main.storyboard in Resources */,
 				6F0C2FD22086E66F0069A6B9 /* GameScene.sks in Resources */,
+				6F26DD99209FEE960018614A /* skinsScene.sks in Resources */,
 				6F1EF2EA20897F2D009EAC33 /* cutmusic.mp3 in Resources */,
 				6F0C2FDD2086E6760069A6B9 /* Assets.xcassets in Resources */,
 				6F0C2FD42086E66F0069A6B9 /* Actions.sks in Resources */,
@@ -337,6 +347,7 @@
 			files = (
 				6F1EF30320898019009EAC33 /* squirrel.swift in Sources */,
 				6F1EF30520898019009EAC33 /* tree.swift in Sources */,
+				6F26DD97209FEE8F0018614A /* skinsClass.swift in Sources */,
 				6F1EF2F020897F6C009EAC33 /* MainMenuScene.swift in Sources */,
 				6F0C2FD62086E66F0069A6B9 /* GameScene.swift in Sources */,
 				6F0C2FD82086E66F0069A6B9 /* GameViewController.swift in Sources */,
@@ -347,6 +358,7 @@
 				6F1EF2F620897F8B009EAC33 /* functions.swift in Sources */,
 				6F1EF30620898019009EAC33 /* pillar.swift in Sources */,
 				6F1EF30720898019009EAC33 /* top.swift in Sources */,
+				6F26DD9B209FEE9E0018614A /* cards.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

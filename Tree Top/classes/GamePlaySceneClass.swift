@@ -24,7 +24,7 @@ class GamePlaySceneClass: SKScene {
     let sHeight = CGFloat(1334);
     
     private var squirrel: Squirrel?;
-    private var musicButton: SKSpriteNode!;
+    private var backButton: SKSpriteNode!;
     private var pillar1: Pillar?;
     private var pillar2: Pillar?;
     private var pillar3: Pillar?;
@@ -41,8 +41,13 @@ class GamePlaySceneClass: SKScene {
     
     override func didMove(to view: SKView) {
         initializeGame();
-        for i in 1...3 {
-            let textureName = "l0_newSquirrel\(i)"
+        if ((UserDefaults.standard.object(forKey: "squirrelSkin") != nil)) {
+            UserDefaults.standard.set("terry", forKey: "squirrelSkin");
+        } else {
+            squirrel?.skin = UserDefaults.standard.object(forKey: "squirrelSkin") as! String;
+        }
+        for i in 0...2 {
+            let textureName = "running_"+(squirrel?.skin)!+"\(i)"
             textureArray.append(SKTexture(imageNamed: textureName))
         }
         for i in 1...7 {
@@ -55,7 +60,7 @@ class GamePlaySceneClass: SKScene {
         }
         squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)), withKey: "squirrel run");
          self.addChild(musicAudio);
-        musicButton.zPosition = 12;
+        backButton.zPosition = 12;
         if (playMusic) {
             musicAudio.run(SKAction.changeVolume(to: 0, duration: TimeInterval(0)))
             musicAudio.run(SKAction.changeVolume(to: 1, duration: TimeInterval(2.5)))
@@ -71,11 +76,12 @@ class GamePlaySceneClass: SKScene {
             tops[i]?.position.x = -500;
             tops[i]?.isAlive = false;
         }
+        resetScene();
     }
     
    private func initializeGame() {
     squirrel = childNode(withName: "squirrel") as? Squirrel;
-    musicButton = childNode(withName: "musicButton") as? SKSpriteNode;
+    backButton = childNode(withName: "backButton") as? SKSpriteNode;
         pillar1 = childNode(withName: "pillar1") as? Pillar;
         pillar2 = childNode(withName: "pillar2") as? Pillar;
         pillar3 = childNode(withName: "pillar3") as? Pillar;
@@ -86,12 +92,12 @@ class GamePlaySceneClass: SKScene {
         background2 = childNode(withName: "background2") as? Background;
         pillars = [pillar1, pillar2, pillar3]
         tops = [top1, top2, top3]
-    dimmer = childNode(withName: "dimmer") as? SKSpriteNode;
+        dimmer = childNode(withName: "dimmer") as? SKSpriteNode;
         gameOver = childNode(withName: "gameOver") as? SKSpriteNode;
-    highScore = childNode(withName: "highscore") as? SKSpriteNode;
+        highScore = childNode(withName: "highscore") as? SKSpriteNode;
         dimmer?.isHidden = true;
         gameOver?.isHidden = true;
-    highScore?.isHidden = true;
+        highScore?.isHidden = true;
     
     for i in 0...(pillars.count-1) {
         pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
@@ -104,7 +110,6 @@ class GamePlaySceneClass: SKScene {
         if ((squirrel?.isDead())!) {
             dimmer?.isHidden = false;
             gameOver?.isHidden = false;
-            //musicButton.position = CGPoint(x: sWidth, y: sHeight);
             for i in 0...(scoreArray.count-1) {
                 scoreArray[i].position = CGPoint(x: 225+(50*i), y: 750);
                 scoreArray[i].zPosition = 15;
@@ -142,7 +147,7 @@ class GamePlaySceneClass: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self);
-            if atPoint(location).name == "musicButton" {
+            if atPoint(location).name == "backButton" {
                 // Load the SKScene from 'GameScene.sks'
                 if let scene = MainMenuScene(fileNamed: "MainMenu") {
                     // Set the scale mode to scale to fit the window
@@ -177,7 +182,7 @@ class GamePlaySceneClass: SKScene {
             pillar?.vel = -9.75;
         }
         for i in 0...(pillars.count-1) {
-            pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
+            pillars[i]?.position.x = (CGFloat(i) + CGFloat(0.5)) * (pillarDist(score: 0) / 3);
             tops[i]?.position.x = -500;
             tops[i]?.isAlive = false;
         }

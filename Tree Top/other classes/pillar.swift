@@ -14,6 +14,9 @@ class Pillar: SKSpriteNode {
     var alive = true;
     var prevFrame = 0;
     var top: Top?
+    var pTheta = CGFloat(randomNumInBetween(min: 0, max: 3.14));
+    var realY = CGFloat(658);
+    var topDist = CGFloat(600);
     
     
     func test(position: CGPoint?, vel: CGFloat?) -> Array<Int> {
@@ -53,7 +56,15 @@ class Pillar: SKSpriteNode {
     }
  
     func move() {
-        self.vel -= 0.0006;
+        if (gameOver == false) {
+            self.vel -= 0.0002;
+        }
+        if (gameScore > 4000 && gameScore < 6000) {
+            self.position.y = self.position.y + (CGFloat(gameScore-4000)/800)*sin(self.pTheta);
+            self.position.y = constrain(value: self.position.y, min: 0.4 * sHeight, max: 1.5 * sHeight);
+        self.top?.position.y = self.position.y+self.topDist;
+        self.pTheta+=0.02;
+        }
         if (self.position.x > -self.size.width) {
             self.position.x += self.vel;
             if (self.top?.isAlive != nil) {
@@ -62,7 +73,7 @@ class Pillar: SKSpriteNode {
                 }
             }
         } else {
-            self.reset(y: pillars[previousPillar]?.position.y);
+            self.reset(y: pillars[previousPillar]?.realY);
         }
     }
     
@@ -76,13 +87,14 @@ class Pillar: SKSpriteNode {
             xChange = cos(theta) * xChange;
             self.position.y = y! + yChange;
             self.position.x += xChange;
-            self.position.y = constrain(value: self.position.y, min: 0.3 * sHeight, max: 1.5 * sHeight)
-            self.size.width = randomNumInBetween(min: sWidth * 0.6, max: sWidth * 0.8)
+            self.position.y = constrain(value: self.position.y, min: 0.4 * sHeight, max: 1.5 * sHeight);
+            self.realY = self.position.y;
+            self.size.width = randomNumInBetween(min: 200, max: 260)
             self.size.height = self.size.width * 5;
-            //CGFloat(gameScore) / 50000
             if (randomValue() < 0.75) {
                 self.top?.isAlive = true;
-                self.top?.position = CGPoint(x: self.position.x, y: self.position.y + constrain(value: 300 - (150 * CGFloat(gameScore) / 5000), min: 80, max: 300));
+                self.topDist = constrain(value: 300 - (150 * CGFloat(gameScore) / 5000), min: 80, max: 300);
+                self.top?.position = CGPoint(x: self.position.x, y: self.position.y + self.topDist);
                 self.top?.size = self.size;
             }
         }

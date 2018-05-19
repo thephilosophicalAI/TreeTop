@@ -67,10 +67,10 @@ func pillarTime(score: Int?) -> Float{
 
 func pillarDist(score: Int?) -> CGFloat {
     if (score != nil) {
-        let valueHold = (Double(score!).squareRoot() * 7) + 1480;
-        if valueHold > 3500 {
+        let valueHold = (Double(score!).squareRoot() * 0.45) + 1700;
+        /* if valueHold > 3500 {
             return 3500
-        }
+        } */
         return CGFloat(valueHold)
     } else {
         return 1500
@@ -85,4 +85,38 @@ func encodeScore(score: Int) -> Array<Int> {
         num/=10;
     }
     return codedArray
+}
+
+func writeAlphwithBox(string: String, toScene: SKScene, topLeft: CGPoint, bottomRight: CGPoint, zPosition: CGFloat) {
+    let letterWidth = (topLeft.x - bottomRight.x) / CGFloat(string.count);
+    let letterHeight = (topLeft.y - bottomRight.y);
+    let upString = string.uppercased();
+    var n: CGFloat = 0.5;
+    for char in upString.characters {
+        let letter = SKSpriteNode(imageNamed: "alphabet_" + String(char));
+        letter.size = CGSize(width: letterWidth, height: letterHeight);
+        letter.position = CGPoint(x: n*letterWidth, y: (topLeft.y + bottomRight.y) / 2);
+        letter.zPosition = zPosition;
+        toScene.addChild(letter);
+        n+=1;
+    }
+}
+
+func writeAlph(string: String, toScene: SKScene, letterSize: CGSize, center: CGPoint, zPosition: CGFloat) -> [SKSpriteNode] {
+    var letters = [SKSpriteNode]();
+    let upString = string.uppercased();
+    let startx = center.x - ((CGFloat(string.count) / 2 - 0.5)*letterSize.width)
+    var xDist: CGFloat = 0;
+    var n: Int = 0;
+    for char in upString.characters {
+        let letter = SKSpriteNode(imageNamed: "alphabet_" + String(char));
+        letter.size = letterSize;
+        letter.position = CGPoint(x: startx + xDist, y: center.y);
+        letter.zPosition = zPosition;
+        toScene.addChild(letter);
+        letters.append(letter);
+        xDist+=letterSize.width;
+        n+=1;
+    }
+    return letters
 }
