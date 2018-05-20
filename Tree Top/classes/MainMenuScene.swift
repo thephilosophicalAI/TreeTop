@@ -77,7 +77,7 @@ class MainMenuScene: SKScene {
                     // Load the SKScene from 'GameScene.sks'
                 if let scene = GamePlaySceneClass(fileNamed: "GamePlayScene") {
                     // Set the scale mode to scale to fit the window
-                    scene.scaleMode = .aspectFill
+                    scene.scaleMode = .fill
                     
                     // Present the scene
                     view!.presentScene(scene)
@@ -99,7 +99,7 @@ class MainMenuScene: SKScene {
                 // Load the SKScene from 'GameScene.sks'
                 if let scene = skinsClass(fileNamed: "skinsScene") {
                     // Set the scale mode to scale to fit the window
-                    scene.scaleMode = .aspectFill
+                    scene.scaleMode = .fill
                     
                     // Present the scene
                     view!.presentScene(scene)

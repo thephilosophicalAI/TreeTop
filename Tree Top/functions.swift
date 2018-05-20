@@ -87,19 +87,22 @@ func encodeScore(score: Int) -> Array<Int> {
     return codedArray
 }
 
-func writeAlphwithBox(string: String, toScene: SKScene, topLeft: CGPoint, bottomRight: CGPoint, zPosition: CGFloat) {
-    let letterWidth = (topLeft.x - bottomRight.x) / CGFloat(string.count);
+func writeAlphwithBox(string: String, toScene: SKScene, topLeft: CGPoint, bottomRight: CGPoint, zPosition: CGFloat) -> [SKSpriteNode] {
+    var letters = [SKSpriteNode]();
+    let letterWidth = abs(topLeft.x - bottomRight.x) / CGFloat(string.count);
     let letterHeight = (topLeft.y - bottomRight.y);
     let upString = string.uppercased();
     var n: CGFloat = 0.5;
     for char in upString {
         let letter = SKSpriteNode(imageNamed: "alphabet_" + String(char));
         letter.size = CGSize(width: letterWidth, height: letterHeight);
-        letter.position = CGPoint(x: n*letterWidth, y: (topLeft.y + bottomRight.y) / 2);
+        letter.position = CGPoint(x: topLeft.x + n*letterWidth, y: (topLeft.y + bottomRight.y) / 2);
         letter.zPosition = zPosition;
         toScene.addChild(letter);
+        letters.append(letter);
         n+=1;
     }
+    return letters;
 }
 
 func writeAlph(string: String, toScene: SKScene, letterSize: CGSize, center: CGPoint, zPosition: CGFloat) -> [SKSpriteNode] {
@@ -108,7 +111,7 @@ func writeAlph(string: String, toScene: SKScene, letterSize: CGSize, center: CGP
     let startx = center.x - ((CGFloat(string.count) / 2 - 0.5)*letterSize.width)
     var xDist: CGFloat = 0;
     var n: Int = 0;
-    for char in upString.characters {
+    for char in upString {
         let letter = SKSpriteNode(imageNamed: "alphabet_" + String(char));
         letter.size = letterSize;
         letter.position = CGPoint(x: startx + xDist, y: center.y);

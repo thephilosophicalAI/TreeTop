@@ -26,7 +26,6 @@
 		6F1EF2F820897F9A009EAC33 /* birdsounds.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F1EF2F720897F9A009EAC33 /* birdsounds.mp3 */; };
 		6F1EF30220898019009EAC33 /* background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF2FC20898019009EAC33 /* background.swift */; };
 		6F1EF30320898019009EAC33 /* squirrel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF2FD20898019009EAC33 /* squirrel.swift */; };
-		6F1EF30420898019009EAC33 /* acorn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF2FE20898019009EAC33 /* acorn.swift */; };
 		6F1EF30520898019009EAC33 /* tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF2FF20898019009EAC33 /* tree.swift */; };
 		6F1EF30620898019009EAC33 /* pillar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF30020898019009EAC33 /* pillar.swift */; };
 		6F1EF30720898019009EAC33 /* top.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1EF30120898019009EAC33 /* top.swift */; };
@@ -78,7 +77,6 @@
 		6F1EF2F720897F9A009EAC33 /* birdsounds.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = birdsounds.mp3; sourceTree = "<group>"; };
 		6F1EF2FC20898019009EAC33 /* background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = background.swift; path = "Tree Top/other classes/background.swift"; sourceTree = SOURCE_ROOT; };
 		6F1EF2FD20898019009EAC33 /* squirrel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = squirrel.swift; path = "Tree Top/other classes/squirrel.swift"; sourceTree = SOURCE_ROOT; };
-		6F1EF2FE20898019009EAC33 /* acorn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = acorn.swift; path = "Tree Top/other classes/acorn.swift"; sourceTree = SOURCE_ROOT; };
 		6F1EF2FF20898019009EAC33 /* tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = tree.swift; path = "Tree Top/other classes/tree.swift"; sourceTree = SOURCE_ROOT; };
 		6F1EF30020898019009EAC33 /* pillar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = pillar.swift; path = "Tree Top/other classes/pillar.swift"; sourceTree = SOURCE_ROOT; };
 		6F1EF30120898019009EAC33 /* top.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = top.swift; path = "Tree Top/other classes/top.swift"; sourceTree = SOURCE_ROOT; };
@@ -175,7 +173,6 @@
 		6F1EF2FB20897FE8009EAC33 /* other classes */ = {
 			isa = PBXGroup;
 			children = (
-				6F1EF2FE20898019009EAC33 /* acorn.swift */,
 				6F1EF2FC20898019009EAC33 /* background.swift */,
 				6F1EF30020898019009EAC33 /* pillar.swift */,
 				6F1EF2FD20898019009EAC33 /* squirrel.swift */,
@@ -352,7 +349,6 @@
 				6F0C2FD62086E66F0069A6B9 /* GameScene.swift in Sources */,
 				6F0C2FD82086E66F0069A6B9 /* GameViewController.swift in Sources */,
 				6F0C2FD02086E66F0069A6B9 /* AppDelegate.swift in Sources */,
-				6F1EF30420898019009EAC33 /* acorn.swift in Sources */,
 				6F1EF2EE20897F64009EAC33 /* GamePlaySceneClass.swift in Sources */,
 				6F1EF30220898019009EAC33 /* background.swift in Sources */,
 				6F1EF2F620897F8B009EAC33 /* functions.swift in Sources */,

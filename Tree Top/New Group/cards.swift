@@ -15,18 +15,13 @@ class Card: SKSpriteNode {
     var labels: [SKSpriteNode?] = [];
     var playHitBox: SKSpriteNode?;
     var tag = "terry";
+    var minScore = 0;
+    var unlocked = false;
     
     var textures: [SKTexture?] = []
     
     func setTextures() {
         self.textures = [SKTexture(imageNamed: "running_"+self.tag+"0"), SKTexture(imageNamed: "running_"+self.tag+"1"), SKTexture(imageNamed: "running_"+self.tag+"2")];
-        /*
-        card?.label = SKSpriteNode(imageNamed: "name_"+(card?.tag)!);
-        card?.label?.size = CGSize(width: 500, height: 95);
-        card?.label?.position = CGPoint(x: (card?.position.x)!, y: (card?.position.y)! + (card?.size.height)!/3);
-        card?.label?.zPosition = 2;
-        self.addChild((card?.label)!);
- */
     }
     
     func move(dist: CGFloat) {

@@ -103,7 +103,7 @@ class GamePlaySceneClass: SKScene {
     squirrel?.setDimn();
     for i in 0...(pillars.count-1) {
         pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
-        pillars[i]?.top = tops[i]
+        pillars[i]?.top = tops[i];
     }
         
     }
@@ -128,16 +128,11 @@ class GamePlaySceneClass: SKScene {
         squirrel?.move();
         for pillar in pillars {
             pillar?.move();
-            var pillarTest = [Int]();
-            if (squirrel?.gliding == true) {
-                pillarTest = (pillar?.test(position: squirrel?.position, vel: squirrel?.vel, height: squirrel?.glideHeight))!;
-            } else {
-                pillarTest = (pillar?.test(position: squirrel?.position, vel: squirrel?.vel, height: squirrel?.runHeight))!;
-            }
-            if  (pillarTest[0] == 1) && (pillarTest[1] != -1) && (squirrel?.isDead()==false) {
-                if pillarTest[1] == 1 {
+            let pillarTest = pillar?.test(position: CGPoint(x: (squirrel?.position.x)!, y: (squirrel?.position.y)! - ((squirrel?.size.height)! / 20)), vel: squirrel?.vel);
+            if  (pillarTest![0] == 1) && (pillarTest![1] != -1) && (squirrel?.isDead()==false) {
+                if pillarTest![1] == 1 {
                     squirrel?.landed(y: pillar?.position.y);
-                } else if pillarTest[1] == 0 {
+                } else if pillarTest![1] == 0 {
                     squirrel?.hitPillar = true;
                     squirrel?.isRotating = true;
                 }
@@ -158,7 +153,7 @@ class GamePlaySceneClass: SKScene {
                 // Load the SKScene from 'GameScene.sks'
                 if let scene = MainMenuScene(fileNamed: "MainMenu") {
                     // Set the scale mode to scale to fit the window
-                    scene.scaleMode = .aspectFill
+                    scene.scaleMode = .fill
                     
                     // Present the scene
                     view!.presentScene(scene)

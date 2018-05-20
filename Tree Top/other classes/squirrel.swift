@@ -27,6 +27,7 @@ class Squirrel: SKSpriteNode {
         if (self.skin=="wizard") {
             self.runHeight = 167;
             self.glideHeight = 220;
+            self.anchorPoint.y = 0.3
         }
     }
     
@@ -35,12 +36,6 @@ class Squirrel: SKSpriteNode {
         if (self.isDead() == false) {
         if self.gliding == true {
             self.vel = constrain(value: self.vel, min: -5, max: 100);
-            if (self.isLanded == false) {
-                self.removeAction(forKey: "squirrel run");
-                self.size.height = self.glideHeight;
-                self.size.width = 180;
-                self.texture = SKTexture(imageNamed: "gliding_"+self.skin);
-            }
         }
             self.score += 1;
         }
@@ -57,6 +52,10 @@ class Squirrel: SKSpriteNode {
         }
         self.jumps += 1;
         self.isLanded = false;
+        self.removeAction(forKey: "squirrel run");
+        self.size.height = self.glideHeight;
+        self.size.width = 180;
+        self.texture = SKTexture(imageNamed: "gliding_"+self.skin);
     }
     
     func landed(y: CGFloat?) {
@@ -64,7 +63,7 @@ class Squirrel: SKSpriteNode {
             print("no value in landed func")
             return
         }
-        self.position.y = y - 10;
+        self.position.y = y + 20;
         self.vel = 0;
         self.jumps = 0;
         if (self.isLanded == false) {
