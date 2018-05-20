@@ -41,15 +41,6 @@ class GamePlaySceneClass: SKScene {
     
     override func didMove(to view: SKView) {
         initializeGame();
-        if ((UserDefaults.standard.object(forKey: "squirrelSkin") != nil)) {
-            UserDefaults.standard.set("terry", forKey: "squirrelSkin");
-        } else {
-            squirrel?.skin = UserDefaults.standard.object(forKey: "squirrelSkin") as! String;
-        }
-        for i in 0...2 {
-            let textureName = "running_"+(squirrel?.skin)!+"\(i)"
-            textureArray.append(SKTexture(imageNamed: textureName))
-        }
         for i in 1...7 {
             let scoreTile = SKSpriteNode(imageNamed: "Layer 1_numbers_00");
             scoreTile.size = CGSize(width: 50, height: 50);
@@ -99,6 +90,17 @@ class GamePlaySceneClass: SKScene {
         gameOver?.isHidden = true;
         highScore?.isHidden = true;
     
+    if ((UserDefaults.standard.object(forKey: "squirrelSkin") != nil)) {
+        squirrel?.skin = UserDefaults.standard.object(forKey: "squirrelSkin") as! String;
+    } else {
+        UserDefaults.standard.set("terry", forKey: "squirrelSkin");
+    }
+    textureArray.removeAll();
+    for i in 0...2 {
+        let textureName = "running_"+(squirrel?.skin)!+"\(i)"
+        textureArray.append(SKTexture(imageNamed: textureName))
+    }
+    squirrel?.setDimn();
     for i in 0...(pillars.count-1) {
         pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
         pillars[i]?.top = tops[i]
@@ -126,11 +128,16 @@ class GamePlaySceneClass: SKScene {
         squirrel?.move();
         for pillar in pillars {
             pillar?.move();
-            let pillarTest = pillar?.test(position: CGPoint(x: (squirrel?.position.x)!, y: (squirrel?.position.y)! - ((squirrel?.size.height)! / 20)), vel: squirrel?.vel);
-            if  (pillarTest![0] == 1) && (pillarTest![1] != -1) && (squirrel?.isDead()==false) {
-                if pillarTest![1] == 1 {
+            var pillarTest = [Int]();
+            if (squirrel?.gliding == true) {
+                pillarTest = (pillar?.test(position: squirrel?.position, vel: squirrel?.vel, height: squirrel?.glideHeight))!;
+            } else {
+                pillarTest = (pillar?.test(position: squirrel?.position, vel: squirrel?.vel, height: squirrel?.runHeight))!;
+            }
+            if  (pillarTest[0] == 1) && (pillarTest[1] != -1) && (squirrel?.isDead()==false) {
+                if pillarTest[1] == 1 {
                     squirrel?.landed(y: pillar?.position.y);
-                } else if pillarTest![1] == 0 {
+                } else if pillarTest[1] == 0 {
                     squirrel?.hitPillar = true;
                     squirrel?.isRotating = true;
                 }
@@ -169,6 +176,8 @@ class GamePlaySceneClass: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         squirrel?.gliding = false;
+        squirrel?.size.height = (squirrel?.runHeight)!;
+        squirrel?.size.width = 220;
         squirrel?.run(SKAction.repeatForever(SKAction.animate(with: textureArray, timePerFrame: 0.1)), withKey: "squirrel run");
     }
     

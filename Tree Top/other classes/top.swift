@@ -13,7 +13,7 @@ class Top: SKSpriteNode {
     var vel = -sWidth * 0.025
     var isAlive = true;
     
-    func test(position: CGPoint?, vel: CGFloat?) -> Array<Int> {
+    func test(position: CGPoint?, vel: CGFloat?, height: CGFloat?) -> Array<Int> {
         
         var boolArray = [0, -1];
         
@@ -21,11 +21,11 @@ class Top: SKSpriteNode {
             return boolArray
         }
         
-        if vel != nil {
+        if (vel != nil) && (height != nil) {
             
-            if (position.x + 50 > self.position.x) && (position.x - 60 < self.position.x + self.size.width) {
+            if (position.x - 220 > self.position.x) && (position.x + 40 < self.position.x + self.size.width) {
                 boolArray[0] = 1;
-                if (position.y > self.position.y + 10) {
+                if (position.y + height! > self.position.y + 10) {
                         boolArray[1] = 0;
                 } else {
                     boolArray[1] = -1;

@@ -55,7 +55,7 @@ class Card: SKSpriteNode {
         self.equipped = 1;
         let textureName = "box_\(self.equipped)_\(self.playing)";
         self.texture = SKTexture(imageNamed: textureName);
-        UserDefaults.standard.set("terry", forKey: "squirrelSkin");
+        UserDefaults.standard.set(self.tag, forKey: "squirrelSkin");
     }
     
 } // class

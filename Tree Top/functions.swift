@@ -92,7 +92,7 @@ func writeAlphwithBox(string: String, toScene: SKScene, topLeft: CGPoint, bottom
     let letterHeight = (topLeft.y - bottomRight.y);
     let upString = string.uppercased();
     var n: CGFloat = 0.5;
-    for char in upString.characters {
+    for char in upString {
         let letter = SKSpriteNode(imageNamed: "alphabet_" + String(char));
         letter.size = CGSize(width: letterWidth, height: letterHeight);
         letter.position = CGPoint(x: n*letterWidth, y: (topLeft.y + bottomRight.y) / 2);

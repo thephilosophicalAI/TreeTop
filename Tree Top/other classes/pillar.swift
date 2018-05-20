@@ -19,9 +19,9 @@ class Pillar: SKSpriteNode {
     var topDist = CGFloat(600);
     
     
-    func test(position: CGPoint?, vel: CGFloat?) -> Array<Int> {
+    func test(position: CGPoint?, vel: CGFloat?, height: CGFloat?) -> Array<Int> {
         
-        guard let testArray = self.top?.test(position: position, vel: vel) else {
+        guard let testArray = self.top?.test(position: position, vel: vel, height: height) else {
             return [0, 0]
         };
         
@@ -36,10 +36,9 @@ class Pillar: SKSpriteNode {
         }
         
         if vel != nil {
-        
-            if (position.x + 50 > self.position.x) && (position.x - 60 < self.position.x + self.size.width) {
+            if (position.x + 220 > self.position.x) && (position.x + 40 < self.position.x + self.size.width) {
                 boolArray[0] = 1;
-                if (position.y < self.position.y + 10) {
+                if (position.y < self.position.y - 10) {
                     if (position.y > self.position.y + vel! - 10) {
                         boolArray[1] = 1;
                     } else {
@@ -48,7 +47,6 @@ class Pillar: SKSpriteNode {
                 } else {
                     boolArray[1] = -1;
                 }
-                
             }
         }
         
