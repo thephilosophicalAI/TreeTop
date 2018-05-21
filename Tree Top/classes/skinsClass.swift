@@ -69,6 +69,10 @@ class skinsClass: SKScene {
             card?.skin?.position = CGPoint(x: (card?.position.x)!+20, y: (card?.position.y)!);
             card?.skin?.zPosition = 2;
             self.addChild((card?.skin)!);
+            if (card?.tag == UserDefaults.standard.object(forKey: "squirrelSkin") as? String) {
+                card?.equipped = 1;
+                card?.texture = SKTexture(imageNamed: "box_1_0");
+            }
             card?.setTextures();
             let audioSession = AVAudioSession.sharedInstance();
             do {

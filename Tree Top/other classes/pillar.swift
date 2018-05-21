@@ -15,7 +15,6 @@ class Pillar: SKSpriteNode {
     var prevFrame = 0;
     var top: Top?
     var pTheta = CGFloat(randomNumInBetween(min: 0, max: 3.14));
-    var realY = CGFloat(658);
     var topDist = CGFloat(600);
     
     
@@ -62,6 +61,7 @@ class Pillar: SKSpriteNode {
             let yDiff = constrain(value: CGFloat(gameScore-3000)/1500, min: 0, max: 1.3) * sin(self.pTheta);
             self.position.y = self.position.y + yDiff;
             self.position.y = constrain(value: self.position.y, min: 0.4 * sHeight, max: 1.5 * sHeight);
+            self.position.y = constrain(value: self.position.y, min: (pillars[previousPillar]?.position.y)! - 350, max: (pillars[previousPillar]?.position.y)! + 350);
             self.top?.position.y = self.position.y+self.topDist;
             self.pTheta+=0.015;
         } else if (gameScore > 7500 && gameScore < 11000) {
@@ -83,7 +83,8 @@ class Pillar: SKSpriteNode {
                 }
             }
         } else {
-            self.reset(y: pillars[previousPillar]?.realY);
+            self.reset(y: pillars[previousPillar]?.position.y);
+            print(previousPillar);
         }
     }
     
@@ -98,7 +99,6 @@ class Pillar: SKSpriteNode {
             self.position.y = y! + yChange;
             self.position.x += xChange;
             self.position.y = constrain(value: self.position.y, min: 0.4 * sHeight, max: 1.5 * sHeight);
-            self.realY = self.position.y;
             self.size.width = randomNumInBetween(min: 200, max: 260)
             self.size.height = self.size.width * 5;
             if (randomValue() < 0.75) {
