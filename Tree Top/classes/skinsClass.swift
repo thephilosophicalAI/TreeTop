@@ -134,6 +134,7 @@ class skinsClass: SKScene {
                 }
             }
             if atPoint(location).name == "backButton" {
+                audioPlayer.stop();
                 // Load the SKScene from 'GameScene.sks'
                 if let scene = MainMenuScene(fileNamed: "MainMenu") {
                     // Set the scale mode to scale to fit the window

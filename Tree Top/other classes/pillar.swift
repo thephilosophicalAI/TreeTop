@@ -84,7 +84,11 @@ class Pillar: SKSpriteNode {
             }
         } else {
             self.reset(y: pillars[previousPillar]?.position.y);
-            print(previousPillar);
+            if (previousPillar < 2) {
+                previousPillar+=1
+            } else {
+                previousPillar = 0;
+            }
         }
     }
     

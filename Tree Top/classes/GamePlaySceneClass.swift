@@ -34,7 +34,7 @@ class GamePlaySceneClass: SKScene {
     private var background2: Background?;
     private var dimmer: SKSpriteNode?;
     private var gameOver: SKSpriteNode?;
-    private var highScore: SKSpriteNode?;
+    private var highScore: [SKSpriteNode] = [];
     private var top1: Top?;
     private var top2: Top?;
     private var top3: Top?;
@@ -63,14 +63,6 @@ class GamePlaySceneClass: SKScene {
         } else {
             musicAudio.run(SKAction.stop());
         }
-        for pillar in pillars {
-            pillar?.position.y = 658;
-        }
-        for i in 0...(pillars.count-1) {
-            pillars[i]?.position.x = pillarDist(score: 0) / 3 * CGFloat(i) + 250;
-            tops[i]?.position.x = -500;
-            tops[i]?.isAlive = false;
-        }
         let ref = Database.database().reference();
         ref.child("highscore").observe(.childAdded, with: { (snapshot) in
             let data = snapshot.value! as! [String:Any];
@@ -95,10 +87,7 @@ class GamePlaySceneClass: SKScene {
         tops = [top1, top2, top3]
         dimmer = childNode(withName: "dimmer") as? SKSpriteNode;
         gameOver = childNode(withName: "gameOver") as? SKSpriteNode;
-        highScore = childNode(withName: "highscore") as? SKSpriteNode;
-        dimmer?.isHidden = true;
-        gameOver?.isHidden = true;
-        highScore?.isHidden = true;
+        highScore = writeAlph(string: "high score", toScene: self, letterSize: CGSize(width: 60, height: 1.6*60), center: CGPoint(x: 375, y: 493), zPosition: 7);
     
     if ((UserDefaults.standard.object(forKey: "squirrelSkin") != nil)) {
         squirrel?.skin = UserDefaults.standard.object(forKey: "squirrelSkin") as! String;
@@ -128,7 +117,9 @@ class GamePlaySceneClass: SKScene {
             }
             let highScoreDefault = UserDefaults.standard;
             if (highScoreDefault.integer(forKey: "high squirrel") < gameScore) {
-                highScore?.isHidden = false;
+                for tile in highScore {
+                    tile.isHidden = false;
+                }
                 highScoreDefault.set(gameScore, forKey: "high squirrel")
                 highScoreDefault.synchronize();
             }
@@ -194,7 +185,9 @@ class GamePlaySceneClass: SKScene {
     func resetScene() {
         dimmer?.isHidden = true;
         gameOver?.isHidden = true;
-        highScore?.isHidden = true;
+        for tile in highScore {
+            tile.isHidden = true;
+        }
         squirrel?.reset();
         for pillar in pillars {
             pillar?.position.y = 658;

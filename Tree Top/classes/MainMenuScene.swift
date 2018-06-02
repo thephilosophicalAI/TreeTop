@@ -19,7 +19,7 @@ class MainMenuScene: SKScene {
     private var playButton: SKSpriteNode!;
     private var leaderBoardButton: SKSpriteNode!;
     private var musicButton: SKSpriteNode!;
-    private var highScore: SKSpriteNode!;
+    private var highScore: [SKSpriteNode] = [];
     private var treeTopSprite: SKSpriteNode!;
     private var sounds = SKAudioNode(fileNamed: "birdsounds.mp3");
     private var scoreArray = [SKSpriteNode]();
@@ -52,7 +52,7 @@ class MainMenuScene: SKScene {
             musicButton.texture = SKTexture(imageNamed: "musicOff");
             audioPlayer.stop();
         }
-        highScore = childNode(withName: "highscore") as? SKSpriteNode;
+        highScore = writeAlph(string: "high score", toScene: self, letterSize: CGSize(width: 60, height: 1.6*60), center: CGPoint(x: 376, y: 1150), zPosition: 1);
         for i in 1...7 {
             let scoreTile = SKSpriteNode(imageNamed: "Layer 1_numbers_00");
             scoreTile.size = CGSize(width: 50, height: 50);
@@ -61,6 +61,7 @@ class MainMenuScene: SKScene {
             self.addChild(scoreTile);
             scoreArray.append(scoreTile);
         }
+        let highScoreDefault = UserDefaults.standard;
         let encodedArray = encodeScore(score: (highScoreDefault.integer(forKey: "high squirrel")))
         for i in 0...(scoreArray.count-1) {
             scoreArray[i].texture = SKTexture(imageNamed: "Layer 1_numbers_0\(encodedArray[(scoreArray.count-1) - i])")
@@ -106,6 +107,7 @@ class MainMenuScene: SKScene {
             }
             
             if atPoint(location).name == "shopButton" {
+                audioPlayer.stop();
                 // Load the SKScene from 'GameScene.sks'
                 if let scene = skinsClass(fileNamed: "skinsScene") {
                     // Set the scale mode to scale to fit the window
@@ -117,19 +119,9 @@ class MainMenuScene: SKScene {
             }
             
             if atPoint(location).name == "leaderboardButton" {
+                audioPlayer.stop();
                 // Load the SKScene from 'GameScene.sks'
                 if let scene = leaderboard(fileNamed: "leaderboardScene") {
-                    // Set the scale mode to scale to fit the window
-                    scene.scaleMode = .fill
-                    
-                    // Present the scene
-                    view!.presentScene(scene)
-                }
-            }
-            
-            if atPoint(location).name == "changeUserName" {
-                // Load the SKScene from 'GameScene.sks'
-                if let scene = sendScore(fileNamed: "sendScoreScene") {
                     // Set the scale mode to scale to fit the window
                     scene.scaleMode = .fill
                     

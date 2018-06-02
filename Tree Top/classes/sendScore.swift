@@ -42,20 +42,7 @@ class sendScore: SKScene {
         backButton = childNode(withName: "backButton") as? SKSpriteNode;
         textBox = childNode(withName: "inputBox") as? SKSpriteNode;
         backspace = childNode(withName: "backspace") as? SKSpriteNode;
-        for letter in "abcdefghijklmnopqrstuvwxyz" {
-            let key = childNode(withName: String(letter)) as? SKSpriteNode;
-            key?.size = CGSize(width: 60, height: 96);
-            keyPads.append(key);
-        }
-        for letter in "submit" {
-            submitTiles.append(childNode(withName: "submit_" + String(letter)) as? SKSpriteNode)
-        }
-        let audioSession = AVAudioSession.sharedInstance();
-        do {
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient);
-        } catch {
-            print(error);
-        }
+        
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "birdsounds", ofType: "mp3")!));
             audioPlayer.prepareToPlay();
@@ -67,6 +54,15 @@ class sendScore: SKScene {
             audioPlayer.play();
         } else {
             audioPlayer.pause();
+        }
+        
+        for letter in "abcdefghijklmnopqrstuvwxyz" {
+            let key = childNode(withName: String(letter)) as? SKSpriteNode;
+            key?.size = CGSize(width: 60, height: 96);
+            keyPads.append(key);
+        }
+        for letter in "submit" {
+            submitTiles.append(childNode(withName: "submit_" + String(letter)) as? SKSpriteNode)
         }
         ref = Database.database().reference();
         
@@ -101,8 +97,9 @@ class sendScore: SKScene {
         for touch in touches {
             let location = touch.location(in: self);
             if atPoint(location).name == "backButton" {
+                audioPlayer.stop();
                 // Load the SKScene from 'GameScene.sks'
-                if let scene = MainMenuScene(fileNamed: "MainMenu") {
+                if let scene = leaderboard(fileNamed: "leaderboardScene") {
                     // Set the scale mode to scale to fit the window
                     scene.scaleMode = .fill
                     
@@ -140,6 +137,7 @@ class sendScore: SKScene {
                             highScoreDefault.set(child?.key, forKey: "treetop ID");
                             highScoreDefault.synchronize();
                             child?.setValue(post);
+                            audioPlayer.stop();
                             if let scene = MainMenuScene(fileNamed: "MainMenu") {
                                 // Set the scale mode to scale to fit the window
                                 scene.scaleMode = .fill
