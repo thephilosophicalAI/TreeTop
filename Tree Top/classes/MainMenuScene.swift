@@ -27,7 +27,7 @@ class MainMenuScene: SKScene {
     override func didMove(to view: SKView) {
         playButton = childNode(withName: "PlayButton") as? SKSpriteNode;
         background = childNode(withName: "background") as? SKSpriteNode;
-        leaderBoardButton = childNode(withName: "leaderboardbutton") as? SKSpriteNode;
+        leaderBoardButton = childNode(withName: "leaderboardButton") as? SKSpriteNode;
         musicButton = childNode(withName: "musicButton") as? SKSpriteNode;
         treeTopSprite = childNode(withName: "TreeTop") as? SKSpriteNode;
         let audioSession = AVAudioSession.sharedInstance();
@@ -64,7 +64,15 @@ class MainMenuScene: SKScene {
         for i in 0...(scoreArray.count-1) {
             scoreArray[i].texture = SKTexture(imageNamed: "Layer 1_numbers_0\(encodedArray[(scoreArray.count-1) - i])")
         }
-
+        if (highScoreDefault.string(forKey: "treetop UN") == nil) {
+            if let scene = sendScore(fileNamed: "sendScoreScene") {
+                // Set the scale mode to scale to fit the window
+                scene.scaleMode = .fill
+                
+                // Present the scene
+                view.presentScene(scene)
+            }
+        }
         
     } //did move to view
     
@@ -74,6 +82,7 @@ class MainMenuScene: SKScene {
             let location = touch.location(in: self);
             
             if atPoint(location).name == "PlayButton" {
+                audioPlayer.stop();
                     // Load the SKScene from 'GameScene.sks'
                 if let scene = GamePlaySceneClass(fileNamed: "GamePlayScene") {
                     // Set the scale mode to scale to fit the window
@@ -106,6 +115,27 @@ class MainMenuScene: SKScene {
                 }
             }
             
+            if atPoint(location).name == "leaderboardButton" {
+                // Load the SKScene from 'GameScene.sks'
+                if let scene = leaderboard(fileNamed: "leaderboardScene") {
+                    // Set the scale mode to scale to fit the window
+                    scene.scaleMode = .fill
+                    
+                    // Present the scene
+                    view!.presentScene(scene)
+                }
+            }
+            
+            if atPoint(location).name == "changeUserName" {
+                // Load the SKScene from 'GameScene.sks'
+                if let scene = sendScore(fileNamed: "sendScoreScene") {
+                    // Set the scale mode to scale to fit the window
+                    scene.scaleMode = .fill
+                    
+                    // Present the scene
+                    view!.presentScene(scene)
+                }
+            }
         }
     } //touches began
     

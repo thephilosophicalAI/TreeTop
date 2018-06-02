@@ -101,6 +101,9 @@ class Pillar: SKSpriteNode {
             self.position.y = constrain(value: self.position.y, min: 0.4 * sHeight, max: 1.5 * sHeight);
             self.size.width = randomNumInBetween(min: 200, max: 260)
             self.size.height = self.size.width * 5;
+            if (gameScore < 6000 && gameScore > 3000) {
+                self.pTheta = CGFloat(randomNumInBetween(min: 0, max: 3.14));
+            }
             if (randomValue() < 0.75) {
                 self.top?.isAlive = true;
                 self.topDist = constrain(value: 300 - (150 * CGFloat(gameScore) / 10000), min: 80, max: 300);
