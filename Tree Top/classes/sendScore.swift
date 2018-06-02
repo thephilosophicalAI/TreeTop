@@ -34,7 +34,7 @@ class sendScore: SKScene {
     private var submitTiles : [SKSpriteNode?] = [];
     private var resultTiles : [SKSpriteNode?] = [];
     private var takenNames : [String?] = [];
-    private var welcomeTiles : [SKSpriteNode?] = [];
+    private var welcomeTiles : [SKSpriteNode] = [];
     private var ref:DatabaseReference?
     
     override func didMove(to view: SKView) {
@@ -77,12 +77,21 @@ class sendScore: SKScene {
         })
         let highScoreDefault = UserDefaults.standard;
         if (highScoreDefault.string(forKey: "treetop UN") == nil) {
-            let welcomeSize = CGSize(width: 60, height: 1.6*60);
-            welcomeTiles = writeAlph(string: "welcome to our app", toScene: self, letterSize: welcomeSize, center: CGPoint(x: 0, y: 400), zPosition: 1)
-            for tile in welcomeTiles {
-                tile?.colorBlendFactor = 0.8;
-                tile?.color = UIColor.green;
+            backButton.isHidden = true;
+            let welcomeSize1 = CGSize(width: 40, height: 1.6*40);
+            let welcomeTiles1 = writeAlph(string: "welcome to our app", toScene: self, letterSize: welcomeSize1, center: CGPoint(x: 0, y: 640), zPosition: 1);
+            let welcomeSize2 = CGSize(width: 20, height: 1.6*20);
+            let welcomeTiles2 = writeAlph(string: "before you begin you need a username", toScene: self, letterSize: welcomeSize2, center: CGPoint(x: 0, y: 300), zPosition: 1);
+            let welcomeTiles3 = writeAlph(string: "you can change this anytime", toScene: self, letterSize: welcomeSize2, center: CGPoint(x: 0, y: 20), zPosition: 1);
+            let welcomeTiles4 = writeAlph(string: "in leaderboard", toScene: self, letterSize: welcomeSize2, center: CGPoint(x: 0, y: -20), zPosition: 1);
+            welcomeTiles = welcomeTiles2 + welcomeTiles3 + welcomeTiles4;
+            for tile in welcomeTiles1 {
+                tile.colorBlendFactor = 1;
+                tile.color = UIColor.green;
             }
+            for tile in welcomeTiles {
+                tile.colorBlendFactor = 0.6;
+                tile.color = UIColor.green;
             }
         }
     } //did move to view
@@ -115,17 +124,35 @@ class sendScore: SKScene {
                     }
                     resultTiles.removeAll();
                     if (username.count == 0) {
-                        resultTiles = writeAlph(string: "username too short", toScene: self, letterSize: CGSize(width: 40, height: 1.6*40), center: CGPoint(x: 0, y: 500), zPosition: 2)
+                        resultTiles = writeAlph(string: "username too short", toScene: self, letterSize: CGSize(width: 40, height: 1.6*40), center: CGPoint(x: 0, y: 450), zPosition: 2)
                         for tile in resultTiles {
                             tile?.colorBlendFactor = 1;
                             tile?.color = UIColor.red;
                         }
                     } else if (goodName) {
                         let highScoreDefault = UserDefaults.standard;
+                        ref = Database.database().reference();
+                        let post = [ "name" : username,
+                                     "score" : highScoreDefault.integer(forKey: "high squirrel") ] as [String : Any];
+                        if (highScoreDefault.string(forKey: "treetop UN") == nil) {
+                            let child = ref?.child("highscore").childByAutoId();
+                            highScoreDefault.set(username, forKey: "treetop UN");
+                            highScoreDefault.set(child?.key, forKey: "treetop ID");
+                            highScoreDefault.synchronize();
+                            child?.setValue(post);
+                            if let scene = MainMenuScene(fileNamed: "MainMenu") {
+                                // Set the scale mode to scale to fit the window
+                                scene.scaleMode = .fill
+                                
+                                // Present the scene
+                                view!.presentScene(scene)
+                            }
+                        }
+                        ref?.child("highscore").child(highScoreDefault.string(forKey: "treetop ID")!).setValue(post);
                         highScoreDefault.set(username, forKey: "treetop UN");
-                        resultTiles = writeAlph(string: "username changed", toScene: self, letterSize: CGSize(width: 40, height: 1.6*40), center: CGPoint(x: 0, y: 500), zPosition: 2);
+                        resultTiles = writeAlph(string: "username changed", toScene: self, letterSize: CGSize(width: 40, height: 1.6*40), center: CGPoint(x: 0, y: 425), zPosition: 2);
                     } else {
-                        resultTiles = writeAlph(string: "username taken", toScene: self, letterSize: CGSize(width: 40, height: 1.6*40), center: CGPoint(x: 0, y: 500), zPosition: 2)
+                        resultTiles = writeAlph(string: "username taken", toScene: self, letterSize: CGSize(width: 40, height: 1.6*40), center: CGPoint(x: 0, y: 425), zPosition: 2)
                         for tile in resultTiles {
                             tile?.colorBlendFactor = 1;
                             tile?.color = UIColor.red;

@@ -60,7 +60,6 @@ class leaderboard: SKScene {
                                     self.addChild(scoreTile);
                                     cell.labels.append(scoreTile);
                                 }
-                                print(cell.position.y);
                                 //self.dataStructs.insert(madeStruct, at: index);
                                 foundPlace = true;
                             }
@@ -142,21 +141,6 @@ class leaderboard: SKScene {
         
         for touch in touches {
             let location = touch.location(in: self);
-            /*for card in cards {
-                if (card?.unlocked)! {
-                    if (atPoint(location).name == card?.playHitBox?.name) {
-                        card?.hit();
-                    } else if (atPoint(location).name == card?.name) {
-                        for insideCard in cards {
-                            if (insideCard?.unlocked)! {
-                                insideCard?.equipped = 0;
-                                insideCard?.texture = SKTexture(imageNamed: "box_0_"+String(describing: (insideCard?.playing)!));
-                            }
-                        }
-                        card?.equip()
-                    }
-                }
-            } */
             if atPoint(location).name == "backButton" {
                 // Load the SKScene from 'GameScene.sks'
                 if let scene = MainMenuScene(fileNamed: "MainMenu") {

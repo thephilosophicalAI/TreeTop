@@ -8,6 +8,8 @@
 
 import SpriteKit
 import AVFoundation
+import Firebase
+import FirebaseDatabase
 
 var playMusic = true;
 
@@ -59,7 +61,6 @@ class MainMenuScene: SKScene {
             self.addChild(scoreTile);
             scoreArray.append(scoreTile);
         }
-        let highScoreDefault = UserDefaults.standard;
         let encodedArray = encodeScore(score: (highScoreDefault.integer(forKey: "high squirrel")))
         for i in 0...(scoreArray.count-1) {
             scoreArray[i].texture = SKTexture(imageNamed: "Layer 1_numbers_0\(encodedArray[(scoreArray.count-1) - i])")

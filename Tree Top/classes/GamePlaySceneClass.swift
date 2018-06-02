@@ -8,6 +8,8 @@
 
 import SpriteKit
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 var gameOver = false;
 var gameScore = 0;
@@ -37,7 +39,9 @@ class GamePlaySceneClass: SKScene {
     private var top2: Top?;
     private var top3: Top?;
     private var scoreArray = [SKSpriteNode]();
+    private var takenNames: [String] = [];
     private var musicAudio = SKAudioNode(fileNamed: "cutmusic.mp3");
+    private var hasBeenChanged: Bool = false;
     
     override func didMove(to view: SKView) {
         initializeGame();
@@ -67,6 +71,12 @@ class GamePlaySceneClass: SKScene {
             tops[i]?.position.x = -500;
             tops[i]?.isAlive = false;
         }
+        let ref = Database.database().reference();
+        ref.child("highscore").observe(.childAdded, with: { (snapshot) in
+            let data = snapshot.value! as! [String:Any];
+            let name = data["name"] as! String;
+            self.takenNames.append(name);
+        })
         resetScene();
     }
     
@@ -109,7 +119,7 @@ class GamePlaySceneClass: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if ((squirrel?.isDead())!) {
+        if (((squirrel?.isDead())!)&&(!hasBeenChanged)) {
             dimmer?.isHidden = false;
             gameOver?.isHidden = false;
             for i in 0...(scoreArray.count-1) {
@@ -122,6 +132,11 @@ class GamePlaySceneClass: SKScene {
                 highScoreDefault.set(gameScore, forKey: "high squirrel")
                 highScoreDefault.synchronize();
             }
+            let post = [ "name" : highScoreDefault.string(forKey: "treetop UN") ?? "no name",
+                         "score" : gameScore] as [String : Any];
+            let ref : DatabaseReference = Database.database().reference();
+            ref.child("highscore").child(highScoreDefault.string(forKey: "treetop ID")!).setValue(post);
+            hasBeenChanged = true;
         } else {
             gameScore = (squirrel?.score)!;
         }
@@ -196,6 +211,7 @@ class GamePlaySceneClass: SKScene {
         }
         background1?.position.x = 750;
         background2?.position.x = 1500;
+        hasBeenChanged = false;
     }
     
     
